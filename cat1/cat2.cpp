@@ -136,6 +136,33 @@ int main(void) {
         Sleep(5000);
         system("cls");
 
+        //행동
+
+        int prevMood = mood;
+
+        if (catPos == HME_POS && prevPos == HME_POS && mood < 3) {
+            mood++;
+            printf("쫀떡이 집에서 쉬며 기분이 좋아집니다: %d -> %d\n", prevMood, mood);
+        }
+        else if (hasScratcher && catPos == 2 && mood < 3) {
+            mood++;
+            printf("쫀떡이 스크래처를 긁고 기분이 좋아졌습니다: %d -> %d\n", prevMood, mood);
+        }
+        else if (hasTower && catPos == 3) {
+            int increase = (mood <= 1) ? 2 : 1;
+            mood += increase;
+            if (mood > 3) mood = 3;
+            printf("쫀떡이 캣타워에서 놀며 기분이 제법 좋아졌습니다: %d -> %d\n", prevMood, mood);
+        }
+        else if (catPos == BWL_POS) {
+            char soups[3][20] = { "감자수프", "양송이수프", "브로콜리수프" };
+            int s = rand() % 3;
+            printf("쫀떡이 %s를 만들었습니다!\n", soups[s]);
+            soupCount++;
+        }
+        Sleep(5000);
+        system("cls");
+
 
 
 
