@@ -86,7 +86,28 @@ int main(void) {
         printf("============================================\n\n");
         Sleep(3000);
         system("cls");
-    
+		
+        //방 그리기
+        drawRoom(catPos, prevPos, hasScratcher, hasTower);
+        Sleep(3000);
+        system("cls");
+
+
+        //기분 나빠짐
+        printf("6~2: 주사위 눈이 4이하이면 그냥 기분이 나빠집니다.\n");
+
+        int moodDice = rand() % 6 + 1;
+        
+        printf("주사위를 굴립니다. 또르륵...\n %d이(가) 나왔습니다!\n", moodDice);
+        if (moodDice <= (6 - intimacy)) {
+            if (mood > 0) mood--;
+            printf("아무 이유 없이 기분이 나빠집니다. 고양이니까?\n쫀떡의 기분이 나빠집니다.\n");
+        }
+        else {
+            printf("쫀떡의 기분은 그대로입니다.\n");
+        }
+        Sleep(3000);
+        system("cls");
 
 
 
