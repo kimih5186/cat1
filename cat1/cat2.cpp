@@ -86,7 +86,7 @@ int main(void) {
         printf("============================================\n\n");
         Sleep(3000);
         system("cls");
-		
+
         //방 그리기
         drawRoom(catPos, prevPos, hasScratcher, hasTower);
         Sleep(3000);
@@ -97,7 +97,7 @@ int main(void) {
         printf("6~2: 주사위 눈이 4이하이면 그냥 기분이 나빠집니다.\n");
 
         int moodDice = rand() % 6 + 1;
-        
+
         printf("주사위를 굴립니다. 또르륵...\n %d이(가) 나왔습니다!\n", moodDice);
         if (moodDice <= (6 - intimacy)) {
             if (mood > 0) mood--;
@@ -110,5 +110,41 @@ int main(void) {
         system("cls");
 
 
+        // 이동
+        prevPos = catPos;
+        if (mood == 0 && catPos != HME_POS) {
+            catPos--;
+            printf("기분이 매우 나쁜 쫀떡이는 집으로 향합니다.\n");
+        }
+        else if (mood == 1) {
+            if (hasScratcher || hasTower) {
+                catPos = (hasScratcher ? 2 : 3);
+                printf("쫀떡은 심심해서 스크래처 쪽으로 이동합니다.\n");
+            }
+            else {
+                printf("놀 거리가 없어서 기분이 매우 나빠집니다.\n");
+                if (mood > 0) mood--;
+            }
+        }
+        else if (mood == 2) {
+            printf("쫀떡은 기분좋게 식빵을 굽고 있습니다.\n");
+        }
+        else if (mood == 3 && catPos != BWL_POS) {
+            catPos++;
+            printf("쫀떡은 골골송을 부르며 수프를 만들러 갑니다.\n");
+        }
+        Sleep(5000);
+        system("cls");
+
+
+
+
+
+
+
+
+
+
+    }
 
 
