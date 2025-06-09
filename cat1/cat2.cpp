@@ -8,6 +8,27 @@
 #define BWL_POS (ROOM_WIDTH - 2)
 #define CAT_NAME "고양이"
 
+int posScratcher = -1;
+int posTower = -1;
+
+void drawRoom(int catPos, int prevPos, int hasScratcher, int hasTower) {
+    printf("###############\n#");
+    for (int i = 0; i < ROOM_WIDTH; i++) {
+        if (i == HME_POS) printf("H");
+        else if (i == BWL_POS) printf("B");
+        else if (hasTower && i == posTower) printf("T");
+        else if (hasScratcher && i == posScratcher) printf("S");
+        else printf(" ");
+    }
+    printf("#\n#");
+    for (int i = 0; i < ROOM_WIDTH; i++) {
+        if (i == catPos) printf("C");
+        else if (i == prevPos && catPos != prevPos) printf(".");
+        else printf(" ");
+    }
+    printf("#\n###############\n\n");
+}
+
 int main(void) {
     srand((unsigned int)time(NULL));
 
@@ -25,6 +46,8 @@ int main(void) {
     printf("고양이 이름은 '%s'입니다.\n\n", CAT_NAME);
 
     Sleep(3000);
+    system("cls");
+    
 
     int intimacy = 2;
     int mood = 3;
@@ -62,8 +85,9 @@ int main(void) {
         }
         printf("============================================\n\n");
         Sleep(3000);
-    }
+        system("cls");
+    
 
 
-}
+
 
