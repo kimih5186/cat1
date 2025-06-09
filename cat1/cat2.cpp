@@ -342,7 +342,7 @@ int main(void) {
             Sleep(3000);
             system("cls");
         }
-		// 돌발 퀘스트
+		//////// 돌발 퀘스트 
         if (turn == 3) {
             printf("★ 돌발 퀘스트 발생! 쫀떡이 숨겨 놓은 간식을 찾아주세요! [엔터를 누르세요]\n");
             getchar(); getchar();
