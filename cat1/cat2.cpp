@@ -164,6 +164,20 @@ int main(void) {
         system("cls");
 
 
+        //상호작용
+        printf("어떤 상호작용을 하시겠습니까?\n");
+        printf(" 0. 아무것도 하지 않음\n 1. 긁어 주기\n");
+        if (hasToyMouse && hasLaser) {
+            printf(" 2. 장난감 쥐로 놀아 주기\n 3. 레이저 포인터로 놀아 주기\n");
+        }
+        else if (hasToyMouse) {
+            printf(" 2. 장난감 쥐로 놀아 주기\n");
+        }
+        else if (hasLaser) {
+            printf(" 2. 레이저 포인터로 놀아 주기\n");
+        }
+        printf(">> ");
+
 
 
 
