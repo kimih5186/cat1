@@ -4,30 +4,83 @@
 #include <time.h>
 
 #define ROOM_WIDTH 12
-#define HME_POS 1
-#define BWL_POS (ROOM_WIDTH - 2)
-#define CAT_NAME "고양이"
+#define HME_POS 0
+#define BWL_POS (ROOM_WIDTH - 1)
+#define CAT_NAME "쫀떡이"
 
 int posScratcher = -1;
 int posTower = -1;
 
-void drawRoom(int catPos, int prevPos, int hasScratcher, int hasTower) {
-    printf("###############\n#");
-    for (int i = 0; i < ROOM_WIDTH; i++) {
-        if (i == HME_POS) printf("H");
-        else if (i == BWL_POS) printf("B");
-        else if (hasTower && i == posTower) printf("T");
-        else if (hasScratcher && i == posScratcher) printf("S");
-        else printf(" ");
-    }
-    printf("#\n#");
-    for (int i = 0; i < ROOM_WIDTH; i++) {
-        if (i == catPos) printf("C");
-        else if (i == prevPos && catPos != prevPos) printf(".");
-        else printf(" ");
-    }
-    printf("#\n###############\n\n");
+// 스크래처와 캣타워의 위치를 랜덤으로 배치하는 함수
+void setRandomFurniturePositions() {
+    do {
+        posScratcher = rand() % ROOM_WIDTH;
+    } while (posScratcher == HME_POS || posScratcher == BWL_POS);
+
+    do {
+        posTower = rand() % ROOM_WIDTH;
+    } while (posTower == HME_POS || posTower == BWL_POS || posTower == posScratcher);
 }
+
+// 방을 그리는 함수
+void drawRoom(int catPos, int prevPos, int hasScratcher, int hasTower) {
+    // 윗 벽
+    for (int i = 0; i < ROOM_WIDTH + 2; i++) printf("#");
+    printf("\n");
+
+    // 첫 번째 줄: 벽 + 방 내용 + 벽
+    for (int i = 0; i < ROOM_WIDTH + 2; i++) {
+        if (i == 0) {
+            printf("#");  // 왼쪽 벽
+        }
+        else if (i == ROOM_WIDTH + 1) {
+            printf("#");  // 오른쪽 벽
+        }
+        else {
+            int pos = i - 1;  // 방 내부 인덱스 (0~ROOM_WIDTH-1)
+            if (pos == HME_POS)
+                printf("H");
+            else if (pos == BWL_POS)
+                printf("B");
+            else if (hasTower && pos == posTower)
+                printf("T");
+            else if (hasScratcher && pos == posScratcher)
+                printf("S");
+            else
+                printf(" ");
+        }
+    }
+    printf("\n");
+
+    // 두 번째 줄: 벽 + 고양이 위치 + 벽
+    for (int i = 0; i < ROOM_WIDTH + 2; i++) {
+        if (i == 0) {
+            printf("#");
+        }
+        else if (i == ROOM_WIDTH + 1) {
+            printf("#");
+        }
+        else {
+            int pos = i - 1;
+            if (pos == catPos)
+                printf("C");
+            else if (pos == prevPos && catPos != prevPos)
+                printf(".");
+            else
+                printf(" ");
+        }
+    }
+    printf("\n");
+
+    // 아랫 벽
+    for (int i = 0; i < ROOM_WIDTH + 2; i++) printf("#");
+    printf("\n\n");
+}
+
+
+
+
+
 
 int main(void) {
     srand((unsigned int)time(NULL));
@@ -134,7 +187,7 @@ int main(void) {
             printf("쫀떡은 골골송을 부르며 수프를 만들러 갑니다.\n");
         }
         Sleep(5000);
-        system("cls");
+        
 
         //행동
 
@@ -191,15 +244,14 @@ int main(void) {
                 intimacy--;
                 printf("집사와의 관계가 나빠집니다.\n");
             }
-            break;
-
+      
         case 1:
             printf("쫀떡의 기분은 그대로입니다: %d\n", mood);
             if (roll >= 5 && intimacy < 4) {
                 intimacy++;
                 printf("집사와의 관계가 좋아졌습니다.\n");
             }
-            break;
+         
 
         case 2:
             if (hasToyMouse) {
@@ -211,7 +263,7 @@ int main(void) {
                     printf("집사와의 관계가 좋아졌습니다.\n");
                 }
             }
-            break;
+            
 
         case 3:
             if (hasLaser) {
@@ -224,7 +276,7 @@ int main(void) {
                     printf("집사와의 관계가 좋아졌습니다.\n");
                 }
             }
-            break;
+            
 
             Sleep(5000);
             system("cls");
@@ -288,12 +340,31 @@ int main(void) {
                 break;
             }
             Sleep(3000);
-            system("cls")
+            system("cls");
+        }
+		// 돌발 퀘스트
+        if (turn == 3) {
+            printf("★ 돌발 퀘스트 발생! 쫀떡이 숨겨 놓은 간식을 찾아주세요! [엔터를 누르세요]\n");
+            getchar(); getchar();
+            int answer = rand() % 3 + 1;
+            int input;
+            printf("1~3 중 어디에 숨었을까요? >> ");
+            scanf_s("%d", &input);
+            if (input == answer) {
+                printf("정답입니다! 친밀도가 1 상승합니다.\n");
+                if (intimacy < 4) intimacy++;
+            }
+            else {
+                printf("틀렸습니다! 쫀떡은 삐졌습니다. 기분 -1\n");
+                if (mood > 0) mood--;
+            }
+            Sleep(3000);
+            system("cls");
+        }
 
-
-
-
-
+        
+        }
+        return 0;
     }
 
 
