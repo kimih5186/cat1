@@ -240,7 +240,55 @@ int main(void) {
             Sleep(5000);
             system("cls");
 
+            // 상점
+            int buy = -1;
+            do {
+                printf("상점에서 물건을 살 수 있습니다. 무엇을 구매하시겠습니까?\n");
+                printf("0. 아무것도 사지 않는다.\n");
+                printf("1. 장난감 쥐: 1 CP %s\n", hasToyMouse ? "(품절)" : "");
+                printf("2. 레이저 포인터: 2 CP %s\n", hasLaser ? "(품절)" : "");
+                printf("3. 스크래처: 4 CP %s\n", hasScratcher ? "(품절)" : "");
+                printf("4. 캣타워: 6 CP %s\n", hasTower ? "(품절)" : "");
+                printf(">> ");
+                scanf_s("%d", &buy);
+            } while (buy < 0 || buy > 4);
 
+            switch (buy) {
+            case 1:
+                if (hasToyMouse) printf("이미 구매했습니다.\n");
+                else if (cp >= 1) { cp--; hasToyMouse = 1; printf("장난감 쥐를 구매했습니다.\n"); }
+                else printf("CP가 부족합니다.\n");
+                break;
+            case 2:
+                if (hasLaser) printf("이미 구매했습니다.\n");
+                else if (cp >= 2) { cp -= 2; hasLaser = 1; printf("레이저 포인터를 구매했습니다.\n"); }
+                else printf("CP가 부족합니다.\n");
+                break;
+            case 3:
+                if (hasScratcher) printf("이미 구매했습니다.\n");
+                else if (cp >= 4) {
+                    cp -= 4;
+                    hasScratcher = 1;
+                    do { posScratcher = rand() % ROOM_WIDTH; } while (posScratcher == HME_POS || posScratcher == BWL_POS);
+                    printf("스크래처를 설치했습니다!\n");
+                }
+                else printf("CP가 부족합니다.\n");
+                break;
+            case 4:
+                if (hasTower) printf("이미 구매했습니다.\n");
+                else if (cp >= 6) {
+                    cp -= 6;
+                    hasTower = 1;
+                    do {
+                        posTower = rand() % ROOM_WIDTH;
+                    } while (posTower == HME_POS || posTower == BWL_POS || posTower == posScratcher);
+                    printf("캣타워를 설치했습니다!\n");
+                }
+                else printf("CP가 부족합니다.\n");
+                break;
+            }
+            Sleep(3000);
+            system("cls")
 
 
 
