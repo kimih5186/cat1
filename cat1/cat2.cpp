@@ -229,7 +229,16 @@ int main(void) {
             Sleep(5000);
             system("cls");
 
+            // CP 생산
+            int cpGain = (mood > 1 ? (mood - 1) : 0) + intimacy;
+            cp += cpGain;
+            printf("쫀떡의 기분(0~3): %d\n", mood);
+            printf("집사와의 친밀도(0~4): %d\n", intimacy);
+            printf("쫀떡의 기분과 친밀도에 따라서 CP가 %d 포인트 생산되었습니다.\n", cpGain);
+            printf("보유 CP: %d 포인트\n", cp);
 
+            Sleep(5000);
+            system("cls");
 
 
 
