@@ -178,6 +178,57 @@ int main(void) {
         }
         printf(">> ");
 
+        //상호작용 처리
+        int act;
+        scanf_s("%d", &act);
+        roll = rand() % 6 + 1;
+
+        switch (act) {
+        case 0:
+            if (mood > 0) mood--;
+            printf("쫀떡의 기분이 나빠졌습니다: %d->%d\n", beforeMood, mood);
+            if (roll <= 5 && intimacy > 0) {
+                intimacy--;
+                printf("집사와의 관계가 나빠집니다.\n");
+            }
+            break;
+
+        case 1:
+            printf("쫀떡의 기분은 그대로입니다: %d\n", mood);
+            if (roll >= 5 && intimacy < 4) {
+                intimacy++;
+                printf("집사와의 관계가 좋아졌습니다.\n");
+            }
+            break;
+
+        case 2:
+            if (hasToyMouse) {
+                printf("장난감 쥐로 쫀떡과 놀아 주었습니다.\n");
+                if (mood < 3) mood++;
+                printf("쫀떡의 기분이 조금 좋아졌습니다: %d->%d\n", beforeMood, mood);
+                if (roll >= 4 && intimacy < 4) {
+                    intimacy++;
+                    printf("집사와의 관계가 좋아졌습니다.\n");
+                }
+            }
+            break;
+
+        case 3:
+            if (hasLaser) {
+                printf("레이저 포인터로 쫀떡과 신나게 놀아 주었습니다.\n");
+                mood += 2;
+                if (mood > 3) mood = 3;
+                printf("쫀떡의 기분이 꽤 좋아졌습니다: %d->%d\n", beforeMood, mood);
+                if (roll >= 2 && intimacy < 4) {
+                    intimacy++;
+                    printf("집사와의 관계가 좋아졌습니다.\n");
+                }
+            }
+            break;
+
+            Sleep(5000);
+            system("cls");
+
 
 
 
